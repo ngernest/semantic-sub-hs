@@ -70,7 +70,7 @@ data BDD x where
     (BDD x) ->
     BDD x
 
--- GADTs require deriving instance
+-- GADTs require `deriving instance`
 
 deriving instance (Show x) => Show (BDD x)
 

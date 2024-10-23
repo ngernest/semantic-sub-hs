@@ -8,6 +8,9 @@ module Types.NMetafunctions
   , rngTy
   ) where
 
+{- HLINT ignore "Redundant bracket" -}
+{- HLINT ignore "Eta reduce" -}    
+
 import Types.Base
 import Types.LazyBDD
 import Types.NSubtype (flattenProds, flattenBDD)

@@ -1,5 +1,8 @@
 module Types.MetafunctionsCompSpec (spec) where
 
+{- HLINT ignore "Redundant bracket" -}
+{- HLINT ignore "Eta reduce" -}
+
 import Test.Hspec
 import Test.QuickCheck (property)
 import Types.Subtype

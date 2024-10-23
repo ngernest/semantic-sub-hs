@@ -14,10 +14,19 @@ module Types.NSubtype
 -- theoretic types... and a potentially useful oracle for more
 -- efficient implementation experimentation!
 
-import Types.Base
+import Types.Base ( emptyBase )
 import Types.LazyBDD
-import Data.List
-import Common.SetOps
+    ( Ty(..),
+      BDD(..),
+      Prod(..),
+      Arrow(..),
+      anyTy,
+      emptyTy,
+      tyAnd,
+      tyOr,
+      tyDiff )
+import Data.List ( (\\) )
+import Common.SetOps ( subsets, nonEmptySubsets )
 
 -- Is this type equivalent to ∅?
 isEmpty :: Ty -> Bool
