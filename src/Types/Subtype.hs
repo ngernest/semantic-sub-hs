@@ -10,7 +10,7 @@ import Types.Base
 import Types.LazyBDD
 
 -- -----------------------------------------------------------------------------
---                       4.1 Deciding Type Inhabitation                         
+--                       4.1 Deciding Type Inhabitation
 -- -----------------------------------------------------------------------------
 
 -- Is this type equivalent to ∅?
@@ -21,7 +21,7 @@ isEmpty (Ty b ps as) =
     && isEmptyArrow as emptyTy [] []
 
 -- -----------------------------------------------------------------------------
---                       4.1.1 Product Type Inhabitation                        
+--                       4.1.1 Product Type Inhabitation
 -- -----------------------------------------------------------------------------
 
 -- Is a BDD of prods equivalent to ∅?
@@ -36,6 +36,8 @@ isEmptyProd Top s1 s2 neg =
     || isEmpty s2
     || aux s1 s2 neg
   where
+    -- \| Searches the space of possible negation combinations,
+    -- ensuring that for each possibility, `s1 * s2` is uninhabited
     aux :: Ty -> Ty -> [Prod] -> Bool
     aux s1 s2 [] = False
     aux s1 s2 ((Prod t1 t2) : neg) = lhsCheck && rhsCheck
@@ -44,6 +46,10 @@ isEmptyProd Top s1 s2 neg =
         diff1 = tyDiff s1 t1
         rhsCheck = isEmpty diff2 || aux s1 diff2 neg
         diff2 = tyDiff s2 t2
+
+-- -----------------------------------------------------------------------------
+--                      4.1.2 Function Type Inhabitation
+-- -----------------------------------------------------------------------------
 
 -- Is a BDD of arrows equivalent to ∅?
 isEmptyArrow :: BDD Arrow -> Ty -> [Arrow] -> [Arrow] -> Bool
