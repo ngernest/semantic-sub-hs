@@ -63,4 +63,5 @@ test-suite basic-sst-test
                    , Types.SubtypeCompSpec
                    , Types.NMetafunctionsSpec
                    , Types.MetafunctionsSpec
+                   , Types.MetafunctionTests
   default-language:    GHC2021

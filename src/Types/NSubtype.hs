@@ -7,6 +7,9 @@ module Types.NSubtype
   , flattenBDD
   ) where
 
+{- HLINT ignore "Redundant bracket" -}
+{- HLINT ignore "Eta reduce" -}
+
 -- A naive (i.e. inefficient) implementation of subtyping for set
 -- theoretic types... and a potentially useful oracle for more
 -- efficient implementation experimentation!
@@ -20,8 +23,8 @@ import Common.SetOps
 isEmpty :: Ty -> Bool
 isEmpty (Ty b ps as) =
   (b == emptyBase)
-  && (isEmptyProd ps)
-  && (isEmptyArrow as)
+  && isEmptyProd ps
+  && isEmptyArrow as
 
 
 
@@ -31,8 +34,8 @@ isEmpty (Ty b ps as) =
 -- (⋃((S×S) ∩ (⋂ ¬(T×T) ...))) 
 flattenProds :: (BDD Prod) -> [(Prod , [Prod])]
 flattenProds prods = flattenAux anyTy anyTy [] prods
-  where flattenAux :: Ty -> Ty -> [Prod] -> (BDD Prod) -> [(Prod , [Prod])]
-        flattenAux t1 t2 negAtoms Top = [((Prod t1 t2) , negAtoms)]
+  where flattenAux :: Ty -> Ty -> [Prod] -> BDD Prod -> [(Prod , [Prod])]
+        flattenAux t1 t2 negAtoms Top = [(Prod t1 t2 , negAtoms)]
         flattenAux t1 t2 negAtoms Bot = []
         flattenAux t1 t2 negAtoms (Node p@(Prod t3 t4) l m r) =
           ((flattenAux (tyAnd t1 t3) (tyAnd t2 t4) negAtoms l)

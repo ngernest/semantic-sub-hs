@@ -9,6 +9,8 @@ module Types.Base
   , baseNot
   ) where
 
+{- HLINT ignore "Use infix" -}
+
 import Data.Set
 
 data BaseTy = T | F | Z

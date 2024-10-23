@@ -61,78 +61,78 @@ spec = do
       it "Product Emptiness" $ property $
         \t1 t2 -> compIsEmpty (Prod t1 t2)
       it "Union of Products Emptiness" $ property $
-        \t1 t2 t3 t4 -> compIsEmpty (Or [(Prod t1 t2), (Prod t3 t4)])
+        \t1 t2 t3 t4 -> compIsEmpty (Or [Prod t1 t2, Prod t3 t4])
       it "Intersection of Products Emptiness" $ property $
-        \t1 t2 t3 t4 -> compIsEmpty (And [(Prod t1 t2), (Prod t3 t4)])
+        \t1 t2 t3 t4 -> compIsEmpty (And [Prod t1 t2, Prod t3 t4])
       it "Union of Intersection of Products Emptiness" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 ->
-          compIsEmpty (Or [(And [(Prod t1 t2), (Prod t3 t4)]),
-                           (And [(Prod t5 t6), (Prod t7 t8)])])
+          compIsEmpty (Or [And [(Prod t1 t2), (Prod t3 t4)],
+                           And [(Prod t5 t6), (Prod t7 t8)]])
       it "Intersection of Union of Products Emptiness" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 ->
-          compIsEmpty (And [(Or [(Prod t1 t2), (Prod t3 t4)]),
-                            (Or [(Prod t5 t6), (Prod t7 t8)])])
+          compIsEmpty (And [Or [(Prod t1 t2), (Prod t3 t4)],
+                            Or [(Prod t5 t6), (Prod t7 t8)]])
 
       it "Product Subtyping" $ property $
         \t1 t2 t3 t4 -> compSubtype (Prod t1 t2) (Prod t3 t4)
       it "Union of Products Subtyping 1" $ property $
         \t1 t2 t3 t4 t5 t6 ->
-          (compSubtype
+          compSubtype
            (Or [(Prod t1 t2), (Prod t3 t4)])
-           (Prod t5 t6))
+           (Prod t5 t6)
       it "Union of Products Subtyping 2" $ property $
         \t1 t2 t3 t4 t5 t6 ->
-          (compSubtype
+          compSubtype
            (Prod t5 t6)
-           (Or [(Prod t1 t2), (Prod t3 t4)]))
+           (Or [(Prod t1 t2), (Prod t3 t4)])
       it "Intersection of Products Subtyping 1" $ property $
         \t1 t2 t3 t4 t5 t6 ->
-          (compSubtype
+          compSubtype
            (And [(Prod t1 t2), (Prod t3 t4)])
-           (Prod t5 t6))
+           (Prod t5 t6)
       it "Intersection of Products Subtyping 2" $ property $
         \t1 t2 t3 t4 t5 t6 ->
-          (compSubtype
+          compSubtype
            (Prod t5 t6)
-           (And [(Prod t1 t2), (Prod t3 t4)]))
+           (And [(Prod t1 t2), (Prod t3 t4)])
       it "Union of Intersection of Products Subtyping 1" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 ->
-          (compSubtype
+          compSubtype
            (Or [(And [(Prod t1 t2), (Prod t3 t4)]),
                 (And [(Prod t5 t6), (Prod t7 t8)])])
-          (Prod t9 t10))
+          (Prod t9 t10)
       it "Union of Intersection of Products Subtyping 2" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 ->
-          (compSubtype
+          compSubtype
            (Prod t9 t10)
            (Or [(And [(Prod t1 t2), (Prod t3 t4)]),
-                (And [(Prod t5 t6), (Prod t7 t8)])]))
+                (And [(Prod t5 t6), (Prod t7 t8)])])
       it "Union of Intersection of Products Subtyping 3" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 t13 t14 t15 t16 ->
-          (compSubtype
+          compSubtype
            (Or [(And [(Prod t1 t2), (Prod t3 t4)]),
                 (And [(Prod t5 t6), (Prod t7 t8)])])
            (Or [(And [(Prod t9 t10), (Prod t11 t12)]),
-                (And [(Prod t13 t14), (Prod t15 t16)])]))
+                (And [(Prod t13 t14), (Prod t15 t16)])])
       it "Intersection of Union of Products Subtyping 1" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 ->
-          (compSubtype
+          compSubtype
            (And [(Or [(Prod t1 t2), (Prod t3 t4)]),
                  (Or [(Prod t5 t6), (Prod t7 t8)])])
-           (Prod t9 t10))
+           (Prod t9 t10)
       it "Intersection of Union of Products Subtyping 2" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 ->
-          (compSubtype
+          compSubtype
            (Prod t9 t10)
            (And [(Or [(Prod t1 t2), (Prod t3 t4)]),
-                 (Or [(Prod t5 t6), (Prod t7 t8)])]))
+                 (Or [(Prod t5 t6), (Prod t7 t8)])])
       it "Intersection of Union of Products Subtyping 3" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 t13 t14 t15 t16 ->
-          (compSubtype
+          compSubtype
            (And [(Or [(Prod t1 t2), (Prod t3 t4)]),
                  (Or [(Prod t5 t6), (Prod t7 t8)])])
            (And [(Or [(Prod t9 t10), (Prod t11 t12)]),
-                 (Or [(Prod t13 t14), (Prod t15 t16)])]))
+                 (Or [(Prod t13 t14), (Prod t15 t16)])])
 
 
 
@@ -147,62 +147,62 @@ spec = do
         \t1 t2 t3 t4 -> compOverlap (Arrow t1 t2) (Arrow t3 t4)
       it "Union of Arrows Subtyping 1" $ property $
         \t1 t2 t3 t4 t5 t6 ->
-          (compSubtype
+          compSubtype
            (Or [(Arrow t1 t2), (Arrow t3 t4)])
-           (Arrow t5 t6))
+           (Arrow t5 t6)
       it "Union of Arrows Subtyping 2" $ property $
         \t1 t2 t3 t4 t5 t6 ->
-          (compSubtype
+          compSubtype
            (Arrow t5 t6)
-           (Or [(Arrow t1 t2), (Arrow t3 t4)]))
+           (Or [(Arrow t1 t2), (Arrow t3 t4)])
       it "Intersection of Arrows Subtyping 1" $ property $
         \t1 t2 t3 t4 t5 t6 ->
-          (compSubtype
+          compSubtype
            (And [(Arrow t1 t2), (Arrow t3 t4)])
-           (Arrow t5 t6))
+           (Arrow t5 t6)
       it "Intersection of Arrows Subtyping 2" $ property $
         \t1 t2 t3 t4 t5 t6 ->
-          (compSubtype
+          compSubtype
            (Arrow t5 t6)
-           (And [(Arrow t1 t2), (Arrow t3 t4)]))
+           (And [(Arrow t1 t2), (Arrow t3 t4)])
       it "Union of Intersection of Arrows Subtyping 1" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 ->
-          (compSubtype
+          compSubtype
            (Or [(And [(Arrow t1 t2), (Arrow t3 t4)]),
                 (And [(Arrow t5 t6), (Arrow t7 t8)])])
-          (Arrow t9 t10))
+          (Arrow t9 t10)
       it "Union of Intersection of Arrows Subtyping 2" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 ->
-          (compSubtype
+          compSubtype
            (Arrow t9 t10)
            (Or [(And [(Arrow t1 t2), (Arrow t3 t4)]),
-                (And [(Arrow t5 t6), (Arrow t7 t8)])]))
+                (And [(Arrow t5 t6), (Arrow t7 t8)])])
       it "Union of Intersection of Arrows Subtyping 3" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 t13 t14 t15 t16 ->
-          (compSubtype
+          compSubtype
            (Or [(And [(Arrow t1 t2), (Arrow t3 t4)]),
                 (And [(Arrow t5 t6), (Arrow t7 t8)])])
            (Or [(And [(Arrow t9 t10), (Arrow t11 t12)]),
-                (And [(Arrow t13 t14), (Arrow t15 t16)])]))
+                (And [(Arrow t13 t14), (Arrow t15 t16)])])
 
       it "Intersection of Union of Arrows Subtyping 1" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 ->
-          (compSubtype
+          compSubtype
            (And [(Or [(Arrow t1 t2), (Arrow t3 t4)]),
                  (Or [(Arrow t5 t6), (Arrow t7 t8)])])
-           (Arrow t9 t10))
+           (Arrow t9 t10)
       it "Intersection of Union of Arrows Subtyping 2" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 ->
-          (compSubtype
+          compSubtype
            (Arrow t9 t10)
            (And [(Or [(Arrow t1 t2), (Arrow t3 t4)]),
-                 (Or [(Arrow t5 t6), (Arrow t7 t8)])]))
+                 (Or [(Arrow t5 t6), (Arrow t7 t8)])])
       it "Intersection of Union of Arrows Subtyping 3" $ property $
         \t1 t2 t3 t4 t5 t6 t7 t8 t9 t10 t11 t12 t13 t14 t15 t16 ->
-          (compSubtype
+          compSubtype
            (And [(Or [(Arrow t1 t2), (Arrow t3 t4)]),
                  (Or [(Arrow t5 t6), (Arrow t7 t8)])])
            (And [(Or [(Arrow t9 t10), (Arrow t11 t12)]),
-                 (Or [(Arrow t13 t14), (Arrow t15 t16)])]))
+                 (Or [(Arrow t13 t14), (Arrow t15 t16)])])
 
 
