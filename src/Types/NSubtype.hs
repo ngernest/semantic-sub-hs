@@ -28,6 +28,10 @@ import Types.LazyBDD
 import Data.List ( (\\) )
 import Common.SetOps ( subsets, nonEmptySubsets )
 
+-- -----------------------------------------------------------------------------
+--                       4.1 Deciding Type Inhabitation                         
+-- -----------------------------------------------------------------------------
+
 -- Is this type equivalent to ∅?
 isEmpty :: Ty -> Bool
 isEmpty (Ty b ps as) =
@@ -35,12 +39,14 @@ isEmpty (Ty b ps as) =
   && isEmptyProd ps
   && isEmptyArrow as
 
+-- -----------------------------------------------------------------------------
+--                       4.1.1 Product Type Inhabitation                        
+-- -----------------------------------------------------------------------------
 
-
--- given a BDD of Prods, return the flattened
+-- Given a BDD of Prods, return the flattened
 -- list representations of the positive
 -- and negative components, e.g.:
--- (⋃((S×S) ∩ (⋂ ¬(T×T) ...))) 
+-- (⋃((S×S) ∩ (⋂ ¬(T×T) ...)))
 flattenProds :: (BDD Prod) -> [(Prod , [Prod])]
 flattenProds prods = flattenAux anyTy anyTy [] prods
   where flattenAux :: Ty -> Ty -> [Prod] -> BDD Prod -> [(Prod , [Prod])]

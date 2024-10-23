@@ -9,12 +9,20 @@ where
 import Types.Base
 import Types.LazyBDD
 
+-- -----------------------------------------------------------------------------
+--                       4.1 Deciding Type Inhabitation                         
+-- -----------------------------------------------------------------------------
+
 -- Is this type equivalent to ∅?
 isEmpty :: Ty -> Bool
 isEmpty (Ty b ps as) =
   b == emptyBase
     && isEmptyProd ps anyTy anyTy []
     && isEmptyArrow as emptyTy [] []
+
+-- -----------------------------------------------------------------------------
+--                       4.1.1 Product Type Inhabitation                        
+-- -----------------------------------------------------------------------------
 
 -- Is a BDD of prods equivalent to ∅?
 isEmptyProd :: BDD Prod -> Ty -> Ty -> [Prod] -> Bool
