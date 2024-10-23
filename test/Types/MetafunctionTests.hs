@@ -19,7 +19,7 @@ genMetafunctionSpec ::
 genMetafunctionSpec
   parse
   rawSubtype
-  rawOverlap
+  _rawOverlap
   rawEquiv
   rawFstProj
   rawSndProj
