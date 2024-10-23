@@ -79,7 +79,7 @@ isEmptyProd ps = all emptyClause (flattenProds ps)
 
     -- Checks that for each N' ⊆ N, the following holds:
     -- 1. `s1` is a subtype of the disjunction of all the 1st components
-    -- of the product types in N', or
+    -- of the product types in N', OR
     -- 2. `s2` is a subtype of the disjunction of all the 2nd components
     -- of the products in N \ N'
     emptyProd :: Ty -> Ty -> [Prod] -> [Prod] -> Bool
