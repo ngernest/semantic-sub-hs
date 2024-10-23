@@ -106,20 +106,16 @@ isEmptyProd ps = all emptyClause (flattenProds ps)
 -- list representations of the positive
 -- and negative components, e.g.:
 -- (⋃(⋂ x ...) ∩ (⋂ ¬x ...)))
-flattenBDD :: (BDD x) -> [([x], [x])]
+flattenBDD :: BDD x -> [([x], [x])]
 flattenBDD as = flattenAux [] [] as
   where
-    flattenAux ::
-      [x] ->
-      [x] ->
-      (BDD x) ->
-      [([x], [x])]
+    flattenAux :: [x] -> [x] -> BDD x -> [([x], [x])]
     flattenAux pos neg Bot = []
     flattenAux pos neg Top = [(pos, neg)]
     flattenAux pos neg (Node a l m r) =
-      ( (flattenAux (a : pos) neg l)
-          ++ (flattenAux pos neg m)
-          ++ (flattenAux pos (a : neg) r)
+      ( flattenAux (a : pos) neg l
+          ++ flattenAux pos neg m
+          ++ flattenAux pos (a : neg) r
       )
 
 -- Is a BDD of arrows equivalent to ∅?
@@ -128,7 +124,7 @@ flattenBDD as = flattenAux [] [] as
 -- negative info N be (¬(T₁ → T₂),...), check that for some
 -- (T₁ → T₂) ∈ N, T₁ <: ⋃(S₁ ...) and for all non-empty P' ⊆ P
 -- (T₁ <: ⋃(S₁→S₂ ∈ P\P') S₁) or (⋂(S₁→S₂ ∈ P') S₂ <: T₂)
-isEmptyArrow :: (BDD Arrow) -> Bool
+isEmptyArrow :: BDD Arrow -> Bool
 isEmptyArrow as = all emptyClause (flattenBDD as)
   where
     emptyClause :: ([Arrow], [Arrow]) -> Bool
