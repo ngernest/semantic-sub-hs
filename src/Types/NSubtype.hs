@@ -83,7 +83,7 @@ isEmptyProd ps = all emptyClause (flattenProds ps)
     -- 2. `s2` is a subtype of the disjunction of all the 2nd components
     -- of the products in N \ N'
     emptyProd :: Ty -> Ty -> [Prod] -> [Prod] -> Bool
-    emptyProd s1 s2 negs negs'g
+    emptyProd s1 s2 negs negs'
       | subtype s1 (orFsts negs') = True
       | subtype s2 (orSnds (negs \\ negs')) = True
       | otherwise = False
