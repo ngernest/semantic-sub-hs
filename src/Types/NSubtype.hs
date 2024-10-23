@@ -72,19 +72,29 @@ flattenProds prods = flattenAux anyTy anyTy [] prods
 isEmptyProd :: BDD Prod -> Bool
 isEmptyProd ps = all emptyClause (flattenProds ps)
   where
+    -- Applies the check in `emptyProd` below to all possible subsets N' of N
     emptyClause :: (Prod, [Prod]) -> Bool
     emptyClause (Prod s1 s2, negs) =
       all (emptyProd s1 s2 negs) (subsets negs)
 
+    -- Checks that for each N' ⊆ N, the following holds:
+    -- 1. `s1` is a subtype of the disjunction of all the 1st components
+    -- of the product types in N', or
+    -- 2. `s2` is a subtype of the disjunction of all the 2nd components
+    -- of the products in N \ N'
     emptyProd :: Ty -> Ty -> [Prod] -> [Prod] -> Bool
-    emptyProd s1 s2 negs negs'
+    emptyProd s1 s2 negs negs'g
       | subtype s1 (orFsts negs') = True
       | subtype s2 (orSnds (negs \\ negs')) = True
       | otherwise = False
 
+    -- Walks over a list of product types, taking the disjunction of
+    -- all the first components
     orFsts :: [Prod] -> Ty
     orFsts ps = foldl (\t (Prod t1 _) -> tyOr t t1) emptyTy ps
 
+    -- Walks over a list of product types, taking the disjunction of
+    -- all the second components
     orSnds :: [Prod] -> Ty
     orSnds ps = foldl (\t (Prod _ t2) -> tyOr t t2) emptyTy ps
 
